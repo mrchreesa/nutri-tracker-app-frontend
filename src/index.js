@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+// import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <AuthedProfileProvider> */}
     <App />
+    {/* </AuthedProfileProvider> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

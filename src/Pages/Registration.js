@@ -30,43 +30,94 @@ export default function Registration(props) {
   const [registrationFieldValues, setRegistrationFieldValues] = useState(
     defaultRegistrationFieldValues
   );
+  const [isErrorUsername, setIsErrorUsername] = useState(null);
+  const [isErrorEmail, setIsErrorEmail] = useState(null);
+  const [isErrorPassword, setIsErrorPassword] = useState(null);
 
-  // useEffect(() => {
-  //   registerUser();
-  // }, []);
+  const [helperTextUsername, setHelperTextUsername] = useState("");
+  const [helperTextEmail, setHelperTextEmail] = useState("");
+  const [helperTextPassword, setHelperTextPassword] = useState("");
 
   const registrationFormOnChangeHandler = new OnChangeHandler(
     registrationFieldValues,
     setRegistrationFieldValues
   );
-  const { authedProfile, setAuthedProfile } = useAuthedProfile;
-  // const { user, setUser } = useContext(UserContext);
+  const { authedProfile, setAuthedProfile } = useAuthedProfile();
 
   const register = (registrationFormInput) => {
-    const { email, password, username } = registrationFormInput;
+    const { username, email, password } = registrationFormInput;
+
+    switch (true) {
+      case username == null || username.length == 0:
+        setIsErrorUsername(true);
+        setHelperTextUsername("Must provide a username");
+        break;
+      case username.length > 0 && username.length <= 3:
+        setIsErrorUsername(true);
+        setHelperTextUsername("Username is too short");
+        break;
+      case username.length > 30:
+        setIsErrorUsername(true);
+        setHelperTextUsername("Username cannot be longer than 30 characters");
+        break;
+      default:
+        setIsErrorUsername(false);
+        setHelperTextUsername("");
+        break;
+    }
+    switch (true) {
+      case !email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )?.input:
+        setIsErrorEmail(true);
+        setHelperTextEmail("Must provide a valid email address");
+        break;
+      case email.length > 50:
+        setIsErrorEmail(true);
+        setHelperTextEmail("Email cannot be longer than 50 characters");
+        break;
+      default:
+        setIsErrorEmail(false);
+        setHelperTextEmail("");
+        break;
+    }
+    switch (true) {
+      case password == null || password.length == 0:
+        setIsErrorPassword(true);
+        setHelperTextPassword("Must provide a password");
+        break;
+      case password.length > 0 && password.length <= 5:
+        setIsErrorPassword(true);
+        setHelperTextPassword("Password must be at least 6 characters long");
+        break;
+      case password.length > 50:
+        setIsErrorPassword(true);
+        setHelperTextPassword("Password cannot be longer than 50 characters");
+        break;
+      default:
+        setIsErrorPassword(false);
+        setHelperTextPassword("");
+        break;
+    }
   };
 
+  console.log(isErrorUsername, isErrorEmail, isErrorPassword);
   const registerUser = (user) => {
-    axios
+    return axios
       .post("/users", registrationFieldValues)
 
       .then((response) => {
         const { username } = response.data;
-        // setUser(username);
         setAuthedProfile(username);
-        console.log(username);
         setRegistrationFieldValues(defaultRegistrationFieldValues);
-        if (user) {
-          history.push("/search");
-        } else {
-          console.log("user not authed");
-        }
+        history.push("/search");
       })
 
       .catch(function (error) {
         console.log(error);
       });
   };
+  console.log(authedProfile);
 
   const classes = useStyles();
 
@@ -88,18 +139,24 @@ export default function Registration(props) {
               Registration
             </Typography>
             <TextField
+              error={isErrorUsername}
+              helperText={helperTextUsername}
               label="Username"
               name="username"
               value={registrationFieldValues.username}
               onChange={registrationFormOnChangeHandler.handleEvent}
             />
             <TextField
+              error={isErrorEmail}
+              helperText={helperTextEmail}
               label="Email"
               name="email"
               value={registrationFieldValues.email}
               onChange={registrationFormOnChangeHandler.handleEvent}
             />
             <TextField
+              error={isErrorPassword}
+              helperText={helperTextPassword}
               label="Password"
               name="password"
               value={registrationFieldValues.password}

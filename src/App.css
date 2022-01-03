@@ -5,6 +5,7 @@
 }
 
 .nav-bar {
+  position: relative;
   margin: 20px;
   display: flex;
   max-height: 200px;
@@ -13,12 +14,28 @@
   width: 100%;
   z-index: 1;
 }
+.profile-hi {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-left: 120px;
+  right: 0;
+  z-index: 0;
+}
 .empty {
   flex-grow: 1;
 }
 .logo {
   height: 13vh;
   max-height: 100px;
+  z-index: 1;
+}
+.logo-link {
+  z-index: 1;
+}
+.logo-profile-search {
+  height: 6vh;
 }
 .logo2 {
   z-index: 1;
@@ -30,6 +47,7 @@
   box-shadow: none !important;
 }
 .login-btn {
+  width: auto;
   background-size: contain;
   letter-spacing: 1px;
   color: rgb(84, 175, 161) !important;
@@ -64,18 +82,77 @@
 .MuiAccordionSummary-content-145 {
   align-items: center !important;
 }
+.MuiAccordionSummary-content {
+  align-items: center !important;
+}
 .app-container {
   /* align-items: center;
   justify-content: center; */
 }
 
 .search-container {
+  display: flex !important;
+  flex-direction: column;
   justify-content: center;
-  margin-block: 50px !important;
+  align-content: center;
+  align-items: center;
+  margin-block: 30px !important;
+  z-index: 1;
+  width: 100%;
 }
 
 .search-bar {
   z-index: 1;
+}
+.search-add {
+  background: linear-gradient(270deg, #63d6b7, #05412d, #63d6b7);
+  background-size: 400% 400%;
+  margin-bottom: 20px !important;
+
+  -webkit-animation: AnimationName 10s ease infinite;
+  -moz-animation: AnimationName 10s ease infinite;
+  animation: AnimationName 10s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* background-image: linear-gradient(
+    to right,
+    rgb(77, 124, 116),
+    rgb(62, 240, 115)
+  ) !important;
+   */
+}
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 .btn-search {
   color: rgb(84, 175, 161) !important;
@@ -268,7 +345,14 @@
   color: rgb(212, 27, 27) !important;
   text-align: center !important;
 }
-
+.chart-item {
+  z-index: 10 !important;
+}
+.skeleton {
+  z-index: 1 !important;
+  width: 60vw !important;
+  height: 80px !important;
+}
 @media (min-width: 768px) {
   .result-list-container {
     align-content: center;

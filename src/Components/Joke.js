@@ -31,6 +31,10 @@ export default function Joke() {
           textShadow: "0 0 2px hsl(0 0% 100%/0.9), 0 0 1px currentColor ",
         }}
       >
+        {" "}
+        <Typography style={{ textAlign: "center" }}>
+          Joke of the day:
+        </Typography>{" "}
         "{joke}"
       </Typography>
     </div>

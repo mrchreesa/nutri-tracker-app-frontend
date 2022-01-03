@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 import { Grid, MuiThemeProvider, Typography, Button } from "@material-ui/core";
 import { useStyles, THEME } from "../Styles/StylesAccordion";
+import { useAuthedProfile } from "../Context/AuthedProfileContext";
 
 import Header from "../Components/Header";
 
 export default function Landing() {
   const classes = useStyles();
-
+  const { authedProfile, setAuthedProfile } = useAuthedProfile();
+  console.log(authedProfile);
   return (
     <MuiThemeProvider theme={THEME}>
       <Grid container item className={classes.root}>
@@ -25,9 +27,15 @@ export default function Landing() {
               Search over 30,000 foods with <br />
               photos & keep track of your intake
             </Typography>
-            <Link to="/registration" style={{ textDecoration: "none" }}>
-              <Button className="landing-btn">Start Free Trial Now</Button>
-            </Link>
+            {authedProfile == null ? (
+              <Link to="/registration" style={{ textDecoration: "none" }}>
+                <Button className="landing-btn">Get Started Now</Button>
+              </Link>
+            ) : (
+              <Link to="/search" style={{ textDecoration: "none" }}>
+                <Button className="landing-btn">Search Foods</Button>
+              </Link>
+            )}
           </Grid>
 
           <Grid>

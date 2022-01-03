@@ -6,13 +6,14 @@ import Landing from "./Pages/Landing";
 import Registration from "./Pages/Registration";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
+import Header from "./Components/Header";
 import axios from "axios";
 import UserContext from "./Context/AuthedProfileContext";
 import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 function App() {
-  axios.defaults.baseURL = `http://localhost:8080/api`;
-
+  axios.defaults.baseURL = `http://localhost:3000/api`;
+  //axios.defaults.withCredentials = true;
   // const [user, setUser] = useState(null);
 
   // const value = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -21,7 +22,6 @@ function App() {
     <Router>
       <Switch>
         <AuthedProfileProvider>
-          {/* <UserContext.Provider value={value}> */}
           <Route
             path="/profile"
             component={(props) => <Profile {...props} />}
@@ -39,7 +39,6 @@ function App() {
             exact
             component={(props) => <Login {...props} />}
           />
-          {/* </UserContext.Provider> */}
 
           <Route path="/" exact component={(props) => <Landing {...props} />} />
         </AuthedProfileProvider>
