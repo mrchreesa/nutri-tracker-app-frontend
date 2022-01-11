@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Button,
@@ -12,6 +12,7 @@ import { Skeleton } from "@material-ui/lab";
 import "../App.css";
 import axios from "axios";
 import { useFoodCount } from "../Context/AuthedProfileContext";
+import { useAuthedProfile } from "../Context/AuthedProfileContext";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { useStyles, THEME } from "../Styles/StylesAccordion";
@@ -33,6 +34,8 @@ export default function ResultList({
 }) {
   const [expanded, setExpanded] = useState("panel1");
   const { foodCount, setFoodCount } = useFoodCount();
+  const { authedProfile, setAuthedProfile } = useAuthedProfile();
+  console.log(authedProfile);
   const classes = useStyles();
 
   const getFoodsCount = () => {
@@ -52,7 +55,7 @@ export default function ResultList({
   };
   const addFoodToProfile = (id) => {
     axios
-      .post(`/ingredients/${id}`)
+      .post(`users/${authedProfile.username}/ingredients/${id}`)
       .then((response) => {
         console.log(response);
       })

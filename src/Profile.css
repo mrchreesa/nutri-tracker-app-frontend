@@ -31,6 +31,9 @@
 .container div {
   border-radius: 15px;
 }
+.infoWrapper {
+  margin-top: 20px;
+}
 
 .item1 {
   background-color: hsl(246, 80%, 60%);

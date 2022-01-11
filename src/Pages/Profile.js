@@ -4,6 +4,7 @@ import data from "../RDI/DataRDI.json";
 import "../Profile.css";
 import ProfileFoodItem from "../Results/ProfileFoodItem";
 import ChartItemProfile from "../Components/ChartItemProfile";
+import ProfileStats from "../Results/ProfileStats";
 import { useAuthedProfile } from "../Context/AuthedProfileContext";
 
 import {
@@ -23,43 +24,33 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import axios from "axios";
 
 export default function Profile(props) {
-  const [tab, setTab] = useState("daily");
   const [foodsInProfile, setFoodsInProfile] = useState([]);
-  const [date, setDate] = useState(null);
   const [isLoadingProf, setIsLoadingProf] = useState(false);
   const [searchNutrientsProfile, setSearchNutrientsProfile] = useState(null);
   const [weightPerServingProfile, setWeightPerServingProfile] = useState(null);
-  const toggleTab = (event) => {
-    setTab(event.target.id);
-  };
+  const { authedProfile, setAuthedProfile } = useAuthedProfile();
   const classes = useStyles();
-
-  const weekday = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  const d = new Date();
-  let day = weekday[d.getUTCDay()];
 
   useEffect(() => {
     getFoodsProfile();
   }, []);
-  const { authedProfile, setAuthedProfile } = useAuthedProfile();
+
   const getFoodsProfile = () => {
     setIsLoadingProf(true);
+    let username;
+    {
+      authedProfile
+        ? (username = authedProfile.username)
+        : (username = authedProfile);
+    }
     axios
-      .get("/ingredients")
+      .get(`users/${username}`)
       .then((response) => {
-        const result = response.data;
-        setFoodsInProfile(response.data);
+        console.log(response.data[0]);
+
+        const result = response.data[0].ingredients;
+        setFoodsInProfile(result);
         setIsLoadingProf(false);
-        console.log(foodsInProfile);
       })
       .catch((error) => {
         console.log(error);
@@ -102,38 +93,9 @@ export default function Profile(props) {
     setExpanded(newExpanded ? panel : false);
   };
 
-  let caloriesInProfile = foodsInProfile
-    .map((item) => item.calories)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-
-  let proteinInProfile = foodsInProfile
-    .map((item) => item.protein)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-
-  let polyUnsaturatedFatInProfile = foodsInProfile
-    .map((item) => item.polyUnsaturatedFat)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-
-  let monoUnsaturatedFatInProfile = foodsInProfile
-    .map((item) => item.monoUnsaturatedFat)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-
-  let carbsInProfile = foodsInProfile
-    .map((item) => item.carbs)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-
-  // let caloriesInProfile = foodsInProfile
-  //               .map((item) => item.calories)
-  //               .reduce((acc, item) => acc + item, 0).toFixed(2);
-
   const deleteFoodFromProfile = (id) => {
     axios
-      .delete(`/ingredients/${id}`)
+      .patch(`/users/${authedProfile.username}/ingredients/${id}`)
       .then((response) => {
         console.log(response);
         getFoodsProfile();
@@ -162,66 +124,7 @@ export default function Profile(props) {
             </Button>
           </Link>
         </Grid>{" "}
-        <Grid container style={{ justifyContent: "center" }}>
-          <div className="container">
-            <div className="item1" id="main">
-              <div className="infoWrapper">
-                <p>Report for</p>
-                {authedProfile ? (
-                  <h2>
-                    {authedProfile.username
-                      ? authedProfile.username
-                      : authedProfile}
-                  </h2>
-                ) : null}
-                <div className="empty-div-profile"></div>
-                <p>Day</p>
-                <h2>{day}</h2>
-              </div>
-            </div>
-            <div className="item2">
-              <h4>Calories</h4>
-              <div className="item11">
-                <h3>{caloriesInProfile}kcal</h3>
-              </div>
-            </div>
-            <div className="item3">
-              <h4>Protein</h4>
-
-              <div className="item11">
-                <h3> {proteinInProfile}g</h3>
-              </div>
-            </div>
-            <div className="item4">
-              <h4>Poly Unsaturated Fat</h4>
-
-              <div className="item11">
-                <h3> {polyUnsaturatedFatInProfile}g</h3>
-              </div>
-            </div>
-            <div className="item5">
-              <h4>Sugar</h4>
-
-              <div className="item11">
-                <h3> {data.sugars}g</h3>
-              </div>
-            </div>
-            <div className="item6">
-              <h4>Carbohydrates</h4>
-
-              <div className="item11">
-                <h3>{carbsInProfile}g</h3>
-              </div>
-            </div>
-            <div className="item7">
-              <h4>Mono Unsaturated Fat</h4>
-
-              <div className="item11">
-                <h3> {monoUnsaturatedFatInProfile}g</h3>
-              </div>
-            </div>
-          </div>
-        </Grid>
+        <ProfileStats foodsInProfile={foodsInProfile} />
         {isLoadingProf ? (
           <>
             <Skeleton className="skeleton" animation="wave" />
@@ -242,7 +145,7 @@ export default function Profile(props) {
                 >
                   <AccordionSummary
                     onClick={() => {
-                      getNutrientsByIdProfile(item.foodId);
+                      getNutrientsByIdProfile(item.ingredient.foodId);
                     }}
                     style={{ justifyContent: "center", maxHeight: 100 }}
                     expandIcon={
@@ -257,6 +160,7 @@ export default function Profile(props) {
                       onClick={(event) => {
                         event.stopPropagation();
                         deleteFoodFromProfile(item._id);
+                        console.log(item._id);
                       }}
                     >
                       Delete
@@ -267,9 +171,9 @@ export default function Profile(props) {
                       handleChangeExpand={handleChangeExpand}
                       setExpanded={setExpanded}
                       className={classes.heading}
-                      id={item.id}
-                      name={item.name}
-                      imageName={item.imageName}
+                      id={item.ingredient.id}
+                      name={item.ingredient.name}
+                      imageName={item.ingredient.imageName}
                     />
                   </AccordionSummary>
                   <AccordionDetails style={{ justifyContent: "center" }}>
