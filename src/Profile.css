@@ -59,7 +59,7 @@ h3 {
 h1,
 h2,
 p {
-  font-weight: 300;
+  font-weight: 600;
 }
 h2 {
   margin-bottom: 0;
@@ -171,6 +171,9 @@ button:active {
 }
 .profile-list-container {
   /* margin-top: 20px !important; */
+}
+.logo-prof {
+  height: 17vh;
 }
 @media screen and (max-width: 900px) {
   .container {

@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, TextField, Button, Typography, Box } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 
-import { Link } from "react-router-dom";
 import { useAuthedProfile } from "../Context/AuthedProfileContext";
 import axios from "axios";
 

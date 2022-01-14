@@ -39,8 +39,10 @@ export default function ResultList({
   const classes = useStyles();
 
   const getFoodsCount = () => {
-    axios.get("/ingredients").then((response) => {
-      setFoodCount(response.data.length + 1);
+    const username = authedProfile.username;
+    axios.get(`users/${username}`).then((response) => {
+      console.log(response);
+      setFoodCount(response.data[0].ingredients.length + 1);
     });
   };
 
@@ -63,7 +65,7 @@ export default function ResultList({
         console.log(error);
       });
   };
-
+  console.log(totalResults);
   return (
     <MuiThemeProvider theme={THEME}>
       {isLoading ? (
@@ -83,8 +85,13 @@ export default function ResultList({
                 style={{ boxShadow: "unset", width: "100%" }}
               >
                 <AccordionSummary
+                  className="accordion-summary-item"
                   onClick={() => setFoodId(item.id)}
-                  style={{ justifyContent: "center", maxHeight: 100 }}
+                  style={{
+                    justifyContent: "center",
+                    maxHeight: 100,
+                    alignItems: "center",
+                  }}
                   expandIcon={
                     <ExpandMoreIcon style={{ color: "hsl(14, 88%, 65%)" }} />
                   }

@@ -59,11 +59,11 @@ export default function ProfileStats({ foodsInProfile }) {
           <div className="infoWrapper">
             <p>Report for</p>
             {authedProfile ? (
-              <h2>
+              <h1>
                 {authedProfile.username
                   ? authedProfile.username
                   : authedProfile}
-              </h2>
+              </h1>
             ) : null}
             <div className="empty-div-profile"></div>
             <p>Day</p>

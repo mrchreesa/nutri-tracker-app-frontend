@@ -13,14 +13,19 @@ export default function Header(props) {
   const { authedProfile, setAuthedProfile } = useAuthedProfile();
   console.log(authedProfile);
   useEffect(() => {
+    let username;
+    {
+      authedProfile ? (username = authedProfile.username) : (username = 0);
+    }
     axios
-      .get("/ingredients")
+      .get(`users/${username}`)
       .then((response) => {
-        setFoodCount(response.data.length);
+        console.log(response.data[0].ingredients.length);
+        setFoodCount(response.data[0].ingredients.length);
       })
       .catch((err) => {
         //const responseCode = err.response.status;
-        console.log(err.response);
+        console.log(err);
       });
   }, []);
 

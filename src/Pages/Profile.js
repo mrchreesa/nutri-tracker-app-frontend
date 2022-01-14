@@ -112,7 +112,10 @@ export default function Profile(props) {
         className="container-profile"
         style={{ position: "relative" }}
       >
-        <Grid className="btn-container-prof" style={{ width: "100%" }}>
+        <Grid
+          className="btn-container-prof"
+          style={{ width: "100%", display: "flex" }}
+        >
           <Link
             //   className="btn-back "
             to="/search"
@@ -123,6 +126,24 @@ export default function Profile(props) {
               Search
             </Button>
           </Link>
+          <div className="empty"></div>
+          <Link to="/">
+            <Button className="btn-logo2">
+              <img
+                className="logo2 logo-prof"
+                src="../../newlogo123.png"
+                alt="logo2"
+              />
+            </Button>
+          </Link>
+          <div className="empty"></div>
+
+          <Button
+            className="login-btn"
+            style={{ height: "max-content", margin: 20 }}
+          >
+            Log out
+          </Button>
         </Grid>{" "}
         <ProfileStats foodsInProfile={foodsInProfile} />
         {isLoadingProf ? (

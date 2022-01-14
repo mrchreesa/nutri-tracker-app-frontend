@@ -62,7 +62,6 @@ function Main(props) {
       });
   };
   // OFFSET Appender
-
   const appendNextTenFoods = () => {
     let updatedFoods = [...result];
     const response = spoonacularAPI

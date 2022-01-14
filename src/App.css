@@ -82,14 +82,19 @@
 .MuiAccordionSummary-content-145 {
   align-items: center !important;
 }
-.MuiAccordionSummary-content {
+.MuiAccordionSummary-content * {
+  align-items: center !important;
+}
+.MuiAccordionSummary-content-158 {
   align-items: center !important;
 }
 .app-container {
   /* align-items: center;
   justify-content: center; */
 }
-
+.accordion-summary-item > * {
+  align-items: center;
+}
 .search-container {
   display: flex !important;
   flex-direction: column;
@@ -158,6 +163,7 @@
   color: rgb(84, 175, 161) !important;
   border: rgb(111, 211, 196) 2px solid !important;
   margin-left: 15px !important;
+  padding: 5px 20px !important;
   border-radius: 12px !important;
   z-index: 1;
 
@@ -351,7 +357,7 @@
 .skeleton {
   z-index: 1 !important;
   width: 60vw !important;
-  height: 80px !important;
+  height: 120px !important;
 }
 @media (min-width: 768px) {
   .result-list-container {
