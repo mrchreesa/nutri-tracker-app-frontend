@@ -20,8 +20,8 @@ export default function Header(props) {
     axios
       .get(`users/${username}`)
       .then((response) => {
-        console.log(response.data[0].ingredients.length);
-        setFoodCount(response.data[0].ingredients.length);
+        console.log(response?.data[0].ingredients.length);
+        setFoodCount(response?.data[0].ingredients.length);
       })
       .catch((err) => {
         //const responseCode = err.response.status;

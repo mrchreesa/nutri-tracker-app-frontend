@@ -30,7 +30,7 @@ export default function Profile(props) {
   const [weightPerServingProfile, setWeightPerServingProfile] = useState(null);
   const { authedProfile, setAuthedProfile } = useAuthedProfile();
   const classes = useStyles();
-
+  console.log(props);
   useEffect(() => {
     getFoodsProfile();
   }, []);
@@ -105,6 +105,21 @@ export default function Profile(props) {
       });
   };
 
+  // Delete Sessions
+  const logOutProf = () => {
+    axios
+      .delete("/users/session")
+      .then((response) => {
+        setAuthedProfile(null);
+
+        props.history.push("/");
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <MuiThemeProvider theme={THEME}>
       <Grid
@@ -141,6 +156,7 @@ export default function Profile(props) {
           <Button
             className="login-btn"
             style={{ height: "max-content", margin: 20 }}
+            onClick={logOutProf}
           >
             Log out
           </Button>

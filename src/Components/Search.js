@@ -17,7 +17,7 @@ export default function Search(props) {
     setQuery(search);
     setSearch("");
   };
-
+  console.log();
   return (
     <Grid container item className="search-container">
       {isLoading ? (

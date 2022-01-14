@@ -156,7 +156,6 @@ function Main(props) {
         console.log(error);
       });
   };
-  console.log(authedProfile);
   return (
     <MuiThemeProvider theme={THEME}>
       <Grid container className={classes.root}>
