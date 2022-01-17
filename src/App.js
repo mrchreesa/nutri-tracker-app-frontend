@@ -12,7 +12,7 @@ import UserContext from "./Context/AuthedProfileContext";
 import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 function App() {
-  axios.defaults.baseURL = `http://localhost:3000/api`;
+  axios.defaults.baseURL = `${process.env.BACKEND_URL}`;
   //axios.defaults.withCredentials = true;
   // const [user, setUser] = useState(null);
 
