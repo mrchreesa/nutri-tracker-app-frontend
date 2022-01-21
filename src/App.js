@@ -12,11 +12,9 @@ import UserContext from "./Context/AuthedProfileContext";
 import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 function App() {
-  axios.defaults.baseURL = `${process.env.BACKEND_URL}`;
-  //axios.defaults.withCredentials = true;
-  // const [user, setUser] = useState(null);
-
-  // const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  console.log(process);
+  axios.defaults.baseURL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/api";
 
   return (
     <Router>
