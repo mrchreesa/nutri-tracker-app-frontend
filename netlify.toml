@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/api"
+  from = "/api/*"
   to = "https://nutri-trackerr.herokuapp.com/"
   status = 200
   force = true
