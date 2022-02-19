@@ -13,7 +13,8 @@
 <h1 align="center">https://www.nutri-tracker.krisrahnev.com</h1>
 <p align="center">
  🔶🔶🔶 Technologies Used Front End 🔶🔶🔶
-<li align="center">
+ </p>
+<p align="center">
 - HTML5
 - CSS3
 - JavaScript (ES6)
@@ -26,9 +27,11 @@
 - Chart JS
 - Git
 - GitHub
-</li>
+</p>
+</br>
 <p align="center">
 🔷🔷🔷 Technologies Used Back End 🔷🔷🔷
+</p>
 <p align="center">
 - Node JS
 - Express
