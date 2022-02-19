@@ -289,7 +289,7 @@
   height: fit-content !important;
   z-index: inherit;
   flex-direction: column;
-  padding-right: 7%;
+  /* padding-right: 7%; */
   padding-top: 10px;
   align-items: center;
 
@@ -362,5 +362,10 @@
 @media (min-width: 768px) {
   .result-list-container {
     align-content: center;
+  }
+}
+@media (max-width: 400px) {
+  .logo2 {
+    height: 12vh;
   }
 }

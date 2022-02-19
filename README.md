@@ -8,11 +8,37 @@
   </a>
 </p>
 
-> Search from over 30,000 foods with pictures and add your daily intake to profile to seamlessly keep track of the nutrients and calories.
+> In this App I've build secure user authentication using hashed passwords with Bcrypt, storing it securely in Mongo DB using Mongoose and authenticating sessions with cookies. Once you've registered you can search from over 30,000 foods with pictures from the Spoonacular API. Each food has a drop down menu with a graph of all the essential nutritional values build with Chart JS fetched from Spoonacular API. Press Add and you will save the chosen food in your profile. There you can find added up nutritional information for all the added foods on the day, plus option to double check the individual food values or delete them from profile. All the foods are stored on the individual profile's database using realtional data and are cleared at the end of each day by automated cron job with Bree.
 
-### 🏠 [Homepage](http://www.nutri-tracker.app)
+### 🏠 [Homepage](http://www.nutri-tracker.krisrahnev.com)
 
-### ✨ [Demo](http://www.nutri-tracker.app)
+### Technologies Used Front End
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- React
+- Git
+- GitHub
+- Material UI
+- Webpack
+- Axios
+- Chart JS
+- Git
+- GitHub
+
+### Technologies Used Back End
+
+- Node JS
+- Express
+- Mongo DB
+- Mongoose
+- Bcrypt
+- Axios
+- Mocha/Chai
+- Moment
+- CORS
+- Bree
 
 ## Install
 
