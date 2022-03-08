@@ -8,12 +8,16 @@
   </a>
 </p>
 
-> In this App I've build secure user authentication using hashed passwords with Bcrypt, storing it securely in Mongo DB using Mongoose and authenticating sessions with cookies. Once you've registered you can search from over 30,000 foods with pictures from the Spoonacular API. Each food has a drop down menu with a graph of all the essential nutritional values build with Chart JS fetched from Spoonacular API. Press Add and you will save the chosen food in your profile. There you can find added up nutritional information for all the added foods on the day, plus option to double check the individual food values or delete them from profile. All the foods are stored on the individual profile's database using realtional data and are cleared at the end of each day by automated cron job with Bree.
+In this App I've build secure user authentication using hashed passwords with Bcrypt, storing it securely in Mongo DB using Mongoose and authenticating sessions with cookies. Once you've registered you can search from over 30,000 foods with pictures from the Spoonacular API. Each food has a drop down menu with a graph of all the essential nutritional values build with Chart JS fetched from Spoonacular API. Press Add and you will save the chosen food in your profile. There you can find added up nutritional information for all the added foods on the day, plus option to double check the individual food values or delete them from profile. All the foods are stored on the individual profile's database using realtional data and are cleared at the end of each day by automated cron job with Bree.
+
+<img align="center" src="./preview 1.png" alt="preview" />
+<img align="center" src="./preview 2.png" alt="preview" />
+<img align="center" src="./preview 3.png" alt="preview" />
 
 <h1 align="center"> 🏠 (https://nutri-tracker.krisrahnev.com) </h1>
 </br>
 <p align="center">
- 🔶🔶🔶 Technologies Used Front End 🔶🔶🔶
+ 🔶🔶🔶 Technologies Used FrontEnd 🔶🔶🔶
  </p>
 <p align="center">
 - HTML5
@@ -29,7 +33,7 @@
 </p>
 </br>
 <p align="center">
-🔷🔷🔷 Technologies Used Back End 🔷🔷🔷
+🔷🔷🔷 Technologies Used [BackEnd](https://github.com/mrchreesa/nutri-tracker-app-backend) 🔷🔷🔷
 </p>
 <p align="center">
 - Node JS
@@ -43,6 +47,7 @@
 - CORS
 - Bree
 </p>
+
 </br>
 
 ## Install
