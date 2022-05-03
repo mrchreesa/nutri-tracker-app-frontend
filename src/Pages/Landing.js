@@ -17,11 +17,14 @@ export default function Landing() {
         <Header />
         <Grid container className="landing-container">
           <Grid container className="landing-text-container">
-            <Typography className="landing-text" style={{ fontSize: "3.8vw" }}>
+            <Typography
+              className="landing-text landing-title"
+              style={{ fontSize: "3.8vw" }}
+            >
               NUTRIENT & CALORIE <br /> TRACKING MADE EASY
             </Typography>
             <Typography
-              className="landing-text"
+              className="landing-text landing-body"
               style={{ fontSize: "2.3vw", marginTop: -10 }}
             >
               Search over 30,000 foods with <br />
