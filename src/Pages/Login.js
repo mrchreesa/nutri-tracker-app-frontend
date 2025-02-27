@@ -68,7 +68,10 @@ export default function Login(props) {
 		}
 		{
 			axios
-				.post("/users/session", loginFieldValues)
+				.post("/users/session", loginFieldValues, {
+					withCredentials: true,
+					baseURL: "https://nutri-tracker-app-backend.vercel.app",
+				})
 				.then(function (response) {
 					const { username } = response.data;
 
