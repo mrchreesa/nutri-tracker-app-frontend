@@ -12,37 +12,25 @@ import UserContext from "./Context/AuthedProfileContext";
 import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 function App() {
-  console.log(process);
-  axios.defaults.baseURL =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:3000/api";
+	console.log(process);
+	axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080/api";
 
-  return (
-    <Router>
-      <Switch>
-        <AuthedProfileProvider>
-          <Route
-            path="/profile"
-            component={(props) => <Profile {...props} />}
-          />
+	return (
+		<Router>
+			<Switch>
+				<AuthedProfileProvider>
+					<Route path="/profile" component={(props) => <Profile {...props} />} />
 
-          <Route path="/search" component={(props) => <Main {...props} />} />
+					<Route path="/search" component={(props) => <Main {...props} />} />
 
-          <Route
-            path="/registration"
-            exact
-            component={(props) => <Registration {...props} />}
-          />
-          <Route
-            path="/login"
-            exact
-            component={(props) => <Login {...props} />}
-          />
+					<Route path="/registration" exact component={(props) => <Registration {...props} />} />
+					<Route path="/login" exact component={(props) => <Login {...props} />} />
 
-          <Route path="/" exact component={(props) => <Landing {...props} />} />
-        </AuthedProfileProvider>
-      </Switch>
-    </Router>
-  );
+					<Route path="/" exact component={(props) => <Landing {...props} />} />
+				</AuthedProfileProvider>
+			</Switch>
+		</Router>
+	);
 }
 
 export default App;
