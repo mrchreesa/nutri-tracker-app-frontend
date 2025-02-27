@@ -13,7 +13,7 @@ const ChartItem = ({ searchNutrients, weightPerServing }) => {
 	let saturatedFat = searchNutrients["Saturated Fat"] !== undefined ? searchNutrients["Saturated Fat"].amount : 0;
 	let totalFat = searchNutrients.Fat !== undefined ? searchNutrients.Fat.amount : 0;
 	let sugar = searchNutrients.Sugar !== undefined ? searchNutrients.Sugar.amount : 0;
-	let salt = searchNutrients.Sodium !== undefined ? searchNutrients.Sodium.amount : 0;
+	// let salt = searchNutrients.Sodium !== undefined ? searchNutrients.Sodium.amount : 0;
 	let weight = weightPerServing !== null ? weightPerServing.amount : 0;
 	return (
 		<div>

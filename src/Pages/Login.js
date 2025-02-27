@@ -28,7 +28,6 @@ export default function Login() {
 		const { email, password } = loginFieldValues;
 		let isValid = true;
 
-		// Email validation
 		if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
 			setIsErrorEmail(true);
 			setHelperTextEmail("Must provide a valid email address");
@@ -42,7 +41,6 @@ export default function Login() {
 			setHelperTextEmail("");
 		}
 
-		// Password validation
 		if (!password || password.length === 0) {
 			setIsErrorPassword(true);
 			setHelperTextPassword("Must provide a password");
@@ -67,8 +65,7 @@ export default function Login() {
 			const { username } = response.data;
 			setAuthedProfile(username);
 			setLoginFieldValues(defaultLoginFieldValues);
-			// Wait briefly to ensure cookie is set before redirect
-			setTimeout(() => history.push("/search"), 100);
+			setTimeout(() => history.push("/search"), 100); // Delay redirect
 		} catch (error) {
 			console.error("Login error:", error.response?.status, error.response?.data);
 			if (error.response?.status === 401) {
@@ -92,15 +89,7 @@ export default function Login() {
 							Log In
 						</Typography>
 						<TextField error={isErrorEmail} helperText={helperTextEmail} label="Email" name="email" value={loginFieldValues.email} onChange={loginFormOnChangeHandler.handleEvent} />
-						<TextField
-							error={isErrorPassword}
-							helperText={helperTextPassword}
-							label="Password"
-							name="password"
-							type="password" // Hide password input
-							value={loginFieldValues.password}
-							onChange={loginFormOnChangeHandler.handleEvent}
-						/>
+						<TextField error={isErrorPassword} helperText={helperTextPassword} label="Password" type="password" value={loginFieldValues.password} onChange={loginFormOnChangeHandler.handleEvent} />
 						<Button className="btn-log-reg" onClick={validateAndLogin}>
 							Enter
 						</Button>

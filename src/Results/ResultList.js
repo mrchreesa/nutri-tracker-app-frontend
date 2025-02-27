@@ -16,7 +16,7 @@ export default function ResultList({ result, setResult, setFoodId, foodId, appen
 	const [expanded, setExpanded] = useState("panel1");
 	const { foodCount, setFoodCount } = useFoodCount();
 	const { authedProfile, setAuthedProfile } = useAuthedProfile();
-	console.log(authedProfile);
+
 	const classes = useStyles();
 
 	const getFoodsCount = () => {
@@ -73,7 +73,7 @@ export default function ResultList({ result, setResult, setFoodId, foodId, appen
 				alert("Failed to add food to your profile. Please try again.");
 			});
 	};
-	console.log(totalResults);
+	// console.log(totalResults);
 	return (
 		<MuiThemeProvider theme={THEME}>
 			{isLoading ? (
@@ -85,7 +85,7 @@ export default function ResultList({ result, setResult, setFoodId, foodId, appen
 				</>
 			) : result.length ? (
 				result.map((item, index, arr) => (
-					<Grid item container className="result-list-container">
+					<Grid key={item.id} item container className="result-list-container">
 						<Grid className={classes.accordionContainer} item>
 							<Accordion expanded={expanded === index} onChange={handleChangeExpand(index)} style={{ boxShadow: "unset", width: "100%" }}>
 								<AccordionSummary

@@ -31,7 +31,6 @@ export default function Registration() {
 		const { username, email, password } = formInput;
 		let isValid = true;
 
-		// Username validation
 		if (!username || username.length === 0) {
 			setIsErrorUsername(true);
 			setHelperTextUsername("Must provide a username");
@@ -49,7 +48,6 @@ export default function Registration() {
 			setHelperTextUsername("");
 		}
 
-		// Email validation
 		if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
 			setIsErrorEmail(true);
 			setHelperTextEmail("Must provide a valid email address");
@@ -63,7 +61,6 @@ export default function Registration() {
 			setHelperTextEmail("");
 		}
 
-		// Password validation
 		if (!password || password.length === 0) {
 			setIsErrorPassword(true);
 			setHelperTextPassword("Must provide a password");
@@ -94,8 +91,7 @@ export default function Registration() {
 			const { username } = response.data;
 			setAuthedProfile(username);
 			setRegistrationFieldValues(defaultRegistrationFieldValues);
-			// Wait briefly to ensure cookie is set before redirect
-			setTimeout(() => history.push("/search"), 100);
+			setTimeout(() => history.push("/search"), 100); // Delay redirect
 		} catch (error) {
 			console.error("Registration error:", error.response?.status, error.response?.data);
 			if (error.response?.status === 409) {
@@ -120,15 +116,7 @@ export default function Registration() {
 						</Typography>
 						<TextField error={isErrorUsername} helperText={helperTextUsername} label="Username" name="username" value={registrationFieldValues.username} onChange={registrationFormOnChangeHandler.handleEvent} />
 						<TextField error={isErrorEmail} helperText={helperTextEmail} label="Email" name="email" value={registrationFieldValues.email} onChange={registrationFormOnChangeHandler.handleEvent} />
-						<TextField
-							error={isErrorPassword}
-							helperText={helperTextPassword}
-							label="Password"
-							name="password"
-							type="password" // Hide password input
-							value={registrationFieldValues.password}
-							onChange={registrationFormOnChangeHandler.handleEvent}
-						/>
+						<TextField error={isErrorPassword} helperText={helperTextPassword} label="Password" type="password" value={registrationFieldValues.password} onChange={registrationFormOnChangeHandler.handleEvent} />
 						<Button className="btn-log-reg" onClick={registerUser}>
 							Submit
 						</Button>
