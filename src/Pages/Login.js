@@ -68,7 +68,7 @@ export default function Login(props) {
 		}
 		{
 			axios
-				.post("/api/users/session", loginFieldValues)
+				.post("/users/session", loginFieldValues)
 				.then(function (response) {
 					const { username } = response.data;
 
