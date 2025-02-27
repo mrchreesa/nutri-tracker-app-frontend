@@ -12,8 +12,7 @@ import UserContext from "./Context/AuthedProfileContext";
 import { AuthedProfileProvider } from "./Context/AuthedProfileContext";
 
 function App() {
-	console.log(process);
-	axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080/api";
+	axios.defaults.baseURL = "https://nutri-tracker-app-backend.vercel.app" || "http://localhost:8080/api";
 
 	return (
 		<Router>
