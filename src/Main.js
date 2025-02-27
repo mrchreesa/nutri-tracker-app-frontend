@@ -10,9 +10,8 @@ import Header from "./Components/Header";
 import Search from "./Components/Search";
 import ResultList from "./Results/ResultList";
 
-require("dotenv").config();
-// make this an ENV
-const API_KEY = process.env.API_KEY;
+// Environment variables in React must be prefixed with REACT_APP_
+const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_KEY = "b5eed59fc04f4aa2a922e46b0541efc9";
 //axios.defaults.baseURL = "https://api.spoonacular.com/food/";
 const spoonacularAPI = axios.create({
