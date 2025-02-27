@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom"; // Use useHistory hook
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { Grid, Card, MuiThemeProvider, Typography, Button, TextField } from "@material-ui/core";
 import { useStyles, THEME } from "../Styles/StylesAccordion";
@@ -15,11 +15,11 @@ const defaultRegistrationFieldValues = {
 };
 
 export default function Registration() {
-	const history = useHistory(); // Replace props.history
+	const history = useHistory();
 	const [registrationFieldValues, setRegistrationFieldValues] = useState(defaultRegistrationFieldValues);
-	const [isErrorUsername, setIsErrorUsername] = useState(null);
-	const [isErrorEmail, setIsErrorEmail] = useState(null);
-	const [isErrorPassword, setIsErrorPassword] = useState(null);
+	const [isErrorUsername, setIsErrorUsername] = useState(false);
+	const [isErrorEmail, setIsErrorEmail] = useState(false);
+	const [isErrorPassword, setIsErrorPassword] = useState(false);
 	const [helperTextUsername, setHelperTextUsername] = useState("");
 	const [helperTextEmail, setHelperTextEmail] = useState("");
 	const [helperTextPassword, setHelperTextPassword] = useState("");
@@ -38,7 +38,7 @@ export default function Registration() {
 			isValid = false;
 		} else if (username.length <= 3) {
 			setIsErrorUsername(true);
-			setHelperTextUsername("Username is too short");
+			setHelperTextUsername("Username must be longer than 3 characters");
 			isValid = false;
 		} else if (username.length > 30) {
 			setIsErrorUsername(true);
@@ -86,7 +86,7 @@ export default function Registration() {
 
 	const registerUser = async () => {
 		if (!validateRegistration(registrationFieldValues)) {
-			return; // Stop if validation fails
+			return;
 		}
 
 		try {
@@ -94,11 +94,15 @@ export default function Registration() {
 			const { username } = response.data;
 			setAuthedProfile(username);
 			setRegistrationFieldValues(defaultRegistrationFieldValues);
-			history.push("/search");
+			// Wait briefly to ensure cookie is set before redirect
+			setTimeout(() => history.push("/search"), 100);
 		} catch (error) {
-			console.error("Registration error:", error);
-			// Optionally update UI with error message
-			setHelperTextEmail("Registration failed. Try again.");
+			console.error("Registration error:", error.response?.status, error.response?.data);
+			if (error.response?.status === 409) {
+				setHelperTextEmail("Username or email already taken");
+			} else {
+				setHelperTextEmail("Registration failed. Please try again.");
+			}
 			setIsErrorEmail(true);
 		}
 	};
@@ -116,7 +120,15 @@ export default function Registration() {
 						</Typography>
 						<TextField error={isErrorUsername} helperText={helperTextUsername} label="Username" name="username" value={registrationFieldValues.username} onChange={registrationFormOnChangeHandler.handleEvent} />
 						<TextField error={isErrorEmail} helperText={helperTextEmail} label="Email" name="email" value={registrationFieldValues.email} onChange={registrationFormOnChangeHandler.handleEvent} />
-						<TextField error={isErrorPassword} helperText={helperTextPassword} label="Password" name="password" value={registrationFieldValues.password} onChange={registrationFormOnChangeHandler.handleEvent} />
+						<TextField
+							error={isErrorPassword}
+							helperText={helperTextPassword}
+							label="Password"
+							name="password"
+							type="password" // Hide password input
+							value={registrationFieldValues.password}
+							onChange={registrationFormOnChangeHandler.handleEvent}
+						/>
 						<Button className="btn-log-reg" onClick={registerUser}>
 							Submit
 						</Button>

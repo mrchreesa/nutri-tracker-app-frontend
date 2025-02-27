@@ -16,8 +16,8 @@ const defaultLoginFieldValues = {
 export default function Login() {
 	const history = useHistory();
 	const [loginFieldValues, setLoginFieldValues] = useState(defaultLoginFieldValues);
-	const [isErrorEmail, setIsErrorEmail] = useState(null);
-	const [isErrorPassword, setIsErrorPassword] = useState(null);
+	const [isErrorEmail, setIsErrorEmail] = useState(false);
+	const [isErrorPassword, setIsErrorPassword] = useState(false);
 	const [helperTextEmail, setHelperTextEmail] = useState("");
 	const [helperTextPassword, setHelperTextPassword] = useState("");
 
@@ -65,17 +65,23 @@ export default function Login() {
 		try {
 			const response = await axios.post("https://nutri-tracker-app-backend.vercel.app/users/session", loginFieldValues, { withCredentials: true });
 			const { username } = response.data;
-			setLoginFieldValues(defaultLoginFieldValues);
 			setAuthedProfile(username);
-			history.push("/search");
+			setLoginFieldValues(defaultLoginFieldValues);
+			// Wait briefly to ensure cookie is set before redirect
+			setTimeout(() => history.push("/search"), 100);
 		} catch (error) {
-			console.error("Login error:", error);
-			setHelperTextEmail("Login failed. Check credentials.");
+			console.error("Login error:", error.response?.status, error.response?.data);
+			if (error.response?.status === 401) {
+				setHelperTextEmail("Invalid email or password");
+			} else {
+				setHelperTextEmail("Login failed. Please try again.");
+			}
 			setIsErrorEmail(true);
 		}
 	};
 
 	const classes = useStyles();
+
 	return (
 		<MuiThemeProvider theme={THEME}>
 			<Grid container item className={classes.root}>
@@ -86,7 +92,15 @@ export default function Login() {
 							Log In
 						</Typography>
 						<TextField error={isErrorEmail} helperText={helperTextEmail} label="Email" name="email" value={loginFieldValues.email} onChange={loginFormOnChangeHandler.handleEvent} />
-						<TextField error={isErrorPassword} helperText={helperTextPassword} label="Password" name="password" value={loginFieldValues.password} onChange={loginFormOnChangeHandler.handleEvent} />
+						<TextField
+							error={isErrorPassword}
+							helperText={helperTextPassword}
+							label="Password"
+							name="password"
+							type="password" // Hide password input
+							value={loginFieldValues.password}
+							onChange={loginFormOnChangeHandler.handleEvent}
+						/>
 						<Button className="btn-log-reg" onClick={validateAndLogin}>
 							Enter
 						</Button>
